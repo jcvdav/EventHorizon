@@ -1,0 +1,21 @@
+Package: EventHorizon
+Type: Package
+Title: Build Event-Study
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Juan Carlos", "Villaseñor-Derbez",
+      email = "jc_villasenor@miami.edu",
+      role = c("aut", "cre")
+    ),
+    person(
+    "Renato", "Molina",
+    email = "renato.molina@miami.edu",
+    role = c("aut", "cre")
+    )
+  )
+Description: More about what it does (maybe more than one line).
+    Continuation lines should be indented.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
