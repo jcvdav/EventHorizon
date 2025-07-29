@@ -16,8 +16,6 @@ Molina.
 Install the development version with:
 
 ``` r
-if(!require(devtools)) {install.packages("devtools")}
-
 # install.packages("pak")
 pak::pak("jcvdav/EventHorizon")
 ```

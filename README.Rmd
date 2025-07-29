@@ -28,8 +28,6 @@ Install the development version with:
 
 ```{r}
 #| eval: false
-if(!require(devtools)) {install.packages("devtools")}
-
 # install.packages("pak")
 pak::pak("jcvdav/EventHorizon")
 ```
