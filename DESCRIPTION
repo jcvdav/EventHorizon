@@ -6,16 +6,26 @@ Authors@R: c(
     person(
       "Juan Carlos", "Villaseñor-Derbez",
       email = "jc_villasenor@miami.edu",
-      role = c("aut", "cre")
+      role = c("aut", "cre"),
+      comment = c(ORCID = "0000-0003-1245-589X")
     ),
     person(
     "Renato", "Molina",
     email = "renato.molina@miami.edu",
-    role = c("aut", "cre")
+    role = c("aut"),
+    comment = c(ORCID = "0000-0002-9036-4152")
     )
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+Description: Builds panels for event-study models based on a user-specified
+    time horizon for repeated interventions.
+License: LICENSE
+Imports:
+    dplyr,
+    tidyr,
+    ggplot2
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+URL: https://github.com/jcvdav/EventHorizon
+BugReports: https://github.com/jcvdav/EventHorizon/issues
