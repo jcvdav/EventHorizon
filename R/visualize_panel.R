@@ -28,15 +28,15 @@ visualize_panel <- function(data, id = id, time = time, treatment = treatment, p
          mapping = ggplot2::aes(x = {{time}}, y = {{id}}, group = {{id}})) +
     ggplot2::geom_line(linewidth = 0.1) +
     ggplot2::scale_size_manual(values = c(0.1, 1)) +
-    labs(x = "Time",
+    ggplot2::labs(x = "Time",
          y = "Unit id",
          size = "Treated")
 
   if(prepped){
     p <- p +
       ggplot2::geom_point(ggplot2::aes(size = treatment == 1, color = treatment_id)) +
-      scale_color_viridis_d() +
-      guides(color="none")
+      ggplot2::scale_color_viridis_d() +
+      ggplot2::guides(color="none")
   } else {
     p <- p +
       ggplot2::geom_point(ggplot2::aes(size = treatment == 1))
