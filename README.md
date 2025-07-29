@@ -19,7 +19,7 @@ Install the development version with:
 if(!require(devtools)) {install.packages("devtools")}
 
 # install.packages("pak")
-pak::pak("tidyverse/ggplot2")
+pak::pak("jcvdav/EventHorizon")
 ```
 
 ## Usage
