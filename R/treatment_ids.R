@@ -7,22 +7,31 @@
 #' @param time A column name containing the time variable in the panel (i.e. the t dimension)
 #' @param treatment A column name containing the name of the dummy variable indicating whether unit i is treated at time t
 #' @param window A number indicating the number of periods within which two or more treatment events are merged. This should be in the same units as `time`
+#' @param time_units A character vector specifying the units in which `time` is measured. Default is "days", other options are "weeks", "months", or "years"
 #'
 #' @returns A character vector specifying the new treatment ids
 #'
 #' @export
 #'
 #' @examples
+#' # Load packages
+#' library(tidyr)
+#' library(dplyr)
+#' library(EventHorizon)
+#'
 #' # Load a panel
 #' panel <- simulate_panel(n_units = 10, n_periods = 10)
 #' head(panel)
 #'
 #' event_horizon_panel <- panel |>
-#' mutate(treatment_id = treatment_ids(id = id, time = time, treatment = treatment, window = 3))
+#' mutate(treatment_id = treatment_ids(id = id,
+#'                                     time = time,
+#'                                     treatment = treatment,
+#'                                     window = 3))
 #'
 #' head(event_horizon_panel)
 #'
-treatment_ids <- function(id, time, treatment, window) {
+treatment_ids <- function(id, time, treatment, window, time_units = "days") {
   # Initialize columns
   treatment_id <- rep(NA, length(treatment))  # This will store initial treatment IDs
 
@@ -54,7 +63,7 @@ treatment_ids <- function(id, time, treatment, window) {
 
         if (j > length(treatment) || is.na(treatment[j]) || processed_indices[j]) next
 
-        days_diff <- as.numeric(difftime(time[j], group_anchor, units = "days"))
+        days_diff <- as.numeric(difftime(time[j], group_anchor, units = time_units))
 
         # If there's an treatment within the window, propagate it
         if (days_diff <= window * 2 && treatment[j]) {

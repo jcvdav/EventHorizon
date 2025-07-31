@@ -4,12 +4,12 @@
 \alias{simulate_panel}
 \title{Build a simulated panel}
 \usage{
-simulate_panel(n_units = 30, n_periods = 50)
+simulate_panel(n_units = 30, n_periods = 30)
 }
 \arguments{
 \item{n_units}{An integer specifying the number of observational units}
 
-\item{n_periods}{An integer specifying the number of periods}
+\item{n_periods}{An integer specifying the number of periods (assumed to be days, max 30)}
 }
 \value{
 a data.frame containing a panel with three columns for id, time, and treatment
@@ -18,8 +18,8 @@ a data.frame containing a panel with three columns for id, time, and treatment
 Build a simulated panel
 }
 \examples{
-
-#' # Load a panel
+library(EventHorizon)
+# Load a panel
 panel <- simulate_panel(n_units = 10, n_periods = 10)
 head(panel)
 }

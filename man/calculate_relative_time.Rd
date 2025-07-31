@@ -13,7 +13,7 @@ calculate_relative_time(id, time, treatment_id, window)
 
 \item{treatment_id}{A character specifying the treatment id, as produced by \code{treatment_ids()}}
 
-\item{window}{}
+\item{window}{A number indicating the number of periods within which two or more treatment events are merged. This should be in the same units as \code{time}}
 }
 \value{
 A numeric vector containing the relative time of treatment in number of periods before or after the start and end of treatment ids identified by \code{treatment_ids()}
@@ -22,13 +22,24 @@ A numeric vector containing the relative time of treatment in number of periods 
 Title
 }
 \examples{
-#' # Load a panel
+# Load packages
+library(tidyr)
+library(dplyr)
+library(EventHorizon)
+
+# Load a panel
 panel <- simulate_panel(n_units = 10, n_periods = 10)
 head(panel)
 
 event_horizon_panel <- panel |>
-mutate(treatment_id = treatment_ids(id = id, time = time, treatment = treatment, window = 3),
-       relative_time = calculate_relative_time(id = id, time = time, treatment_id = treatment_id, window = 3))
+mutate(treatment_id = treatment_ids(id = id,
+                                    time = time,
+                                    treatment = treatment,
+                                    window = 3),
+       relative_time = calculate_relative_time(id = id,
+                                               time = time,
+                                               treatment_id = treatment_id,
+                                               window = 3))
 
 head(event_horizon_panel)
 

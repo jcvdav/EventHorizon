@@ -13,7 +13,7 @@ propagate_treatment_id(time, id, treatment_id, window)
 
 \item{treatment_id}{A character specifying the treatment id, as produced by \code{treatment_ids()}}
 
-\item{window}{}
+\item{window}{A number indicating the number of periods within which two or more treatment events are merged. This should be in the same units as \code{time}}
 }
 \value{
 A character vector specifiying the treatment id for treated and control periods of a given unit
@@ -22,18 +22,32 @@ A character vector specifiying the treatment id for treated and control periods 
 Propagates the treatment id from \code{treatment_ids} across control periods
 }
 \examples{
-#' #' # Load a panel
+# Load packages
+library(tidyr)
+library(dplyr)
+library(EventHorizon)
+
+# Load a panel
 panel <- simulate_panel(n_units = 10, n_periods = 10)
 head(panel)
 
 event_horizon_panel <- panel |>
-mutate(treatment_id = treatment_ids(id = id, time = time, treatment = treatment, window = 3),
-       relative_time = calculate_relative_time(id = id, time = time, treatment_id = treatment_id, window = 3),
-       treatment_id = propagate_treatment_id(id = id, time = time, treatment_id = treatment_id, window = 3)) |>
+mutate(treatment_id = treatment_ids(id = id,
+                                    time = time,
+                                    treatment = treatment,
+                                    window = 3),
+       relative_time = calculate_relative_time(id = id,
+                                               time = time,
+                                               treatment_id = treatment_id,
+                                               window = 3),
+       treatment_id = propagate_treatment_id(id = id,
+                                             time = time,
+                                             treatment_id = treatment_id,
+                                             window = 3)) |>
 drop_na(treatment_id)
 
 head(event_horizon_panel)
 visualize_panel(panel)
 visualize_panel(event_horizon_panel)
-visualize_panel(event_horizon_panel, prepped = T)
+visualize_panel(event_horizon_panel, prepped = TRUE)
 }

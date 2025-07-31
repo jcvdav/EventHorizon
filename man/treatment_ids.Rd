@@ -4,7 +4,7 @@
 \alias{treatment_ids}
 \title{Identify treatment ids based on a user-defined window}
 \usage{
-treatment_ids(id, time, treatment, window)
+treatment_ids(id, time, treatment, window, time_units = "days")
 }
 \arguments{
 \item{id}{A column name containing the unique identifier of the observational unit in the panel (the i dimension)}
@@ -14,6 +14,8 @@ treatment_ids(id, time, treatment, window)
 \item{treatment}{A column name containing the name of the dummy variable indicating whether unit i is treated at time t}
 
 \item{window}{A number indicating the number of periods within which two or more treatment events are merged. This should be in the same units as \code{time}}
+
+\item{time_units}{A character vector specifying the units in which \code{time} is measured. Default is "days", other options are "weeks", "months", or "years"}
 }
 \value{
 A character vector specifying the new treatment ids
@@ -22,12 +24,20 @@ A character vector specifying the new treatment ids
 If in treatment falls within the window, it is considered a single treatment event and a new treatment id is created.
 }
 \examples{
+# Load packages
+library(tidyr)
+library(dplyr)
+library(EventHorizon)
+
 # Load a panel
 panel <- simulate_panel(n_units = 10, n_periods = 10)
 head(panel)
 
 event_horizon_panel <- panel |>
-mutate(treatment_id = treatment_ids(id = id, time = time, treatment = treatment, window = 3))
+mutate(treatment_id = treatment_ids(id = id,
+                                    time = time,
+                                    treatment = treatment,
+                                    window = 3))
 
 head(event_horizon_panel)
 
