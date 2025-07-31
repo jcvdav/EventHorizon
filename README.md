@@ -5,7 +5,7 @@
 
 ## Overview
 
-An R Package to builds panels for event-study models based on a
+An R Package to build panels for event-study models based on a
 user-specified time horizon for repeated interventions
 
 The package is co-developed by Juan Carlos Villaseñor-Derbez and Renato
