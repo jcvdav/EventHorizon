@@ -13,7 +13,7 @@ compute_cumulative_effects(
 )
 }
 \arguments{
-\item{model}{A \code{fixest} object.}
+\item{model}{A \code{fixest} or \code{conleyreg} object.}
 
 \item{prefix}{Character prefix identifying the event-study coefficients. The
 default matches \code{i(relative_time, ...)} produced names such as

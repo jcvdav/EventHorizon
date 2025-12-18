@@ -21,6 +21,6 @@ simulate_panel <- function(n_units = 30, n_periods = 30){
                                 1:ceiling(n_units / length(LETTERS)),
                                 paste0)[1:n_units],
                      time = 1:n_periods) |>
-    dplyr::mutate(treatment = rbinom(n = id, size = 1, prob = 0.1),
+    dplyr::mutate(treatment = stats::rbinom(n = id, size = 1, prob = 0.1),
                   time = lubridate::ymd(paste0("2025-01-", time)))
 }

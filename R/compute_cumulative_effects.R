@@ -1,6 +1,6 @@
 #' Compute cumulative event-study effects with delta-method standard errors.
 #'
-#' @param model A `fixest` object.
+#' @param model A `fixest` object or a `coeftest` object (as returned by `conleyreg`).
 #' @param prefix Character prefix identifying the event-study coefficients. The
 #'   default matches `i(relative_time, ...)` produced names such as
 #'   `"relative_time::0"`.
@@ -31,12 +31,33 @@ compute_cumulative_effects <- function(model,
             Consider using [[]] or map_dfr instead.")
   }
 
-  stopifnot(inherits(model, "fixest"))
+  # Check if model is from fixest or coeftest (conleyreg)
+  is_fixest <- inherits(model, "fixest")
+  is_coeftest <- inherits(model, "coeftest")
+  
+  if (!is_fixest && !is_coeftest) {
+    stop("Model must be a 'fixest' object or a 'coeftest' object (as returned by conleyreg).")
+  }
 
   # Retrieve coefficient estimates and their covariance matrix.
-  ct <- fixest::coeftable(model)
-  coefs <- ct[, "Estimate"]
-  vcov_mat <- stats::vcov(model)
+  # For fixest, use coeftable; for coeftest, extract from matrix columns
+  if (is_fixest) {
+    ct <- fixest::coeftable(model)
+    coefs <- ct[, "Estimate"]
+    vcov_mat <- stats::vcov(model)
+  } else {
+    # coeftest objects are matrices: first column = coefficients, second = std errors
+    coefs <- model[, 1]
+    names(coefs) <- rownames(model)
+    # Try to get vcov, otherwise construct from standard errors
+    vcov_mat <- tryCatch(stats::vcov(model), error = function(e) NULL)
+    if (is.null(vcov_mat)) {
+      # Construct diagonal vcov matrix from standard errors
+      std_errors <- model[, 2]
+      vcov_mat <- diag(std_errors^2)
+      rownames(vcov_mat) <- colnames(vcov_mat) <- rownames(model)
+    }
+  }
 
   # Identify event-study coefficients matching the requested prefix.
   relevant <- stringr::str_starts(names(coefs), prefix)
