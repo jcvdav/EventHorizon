@@ -1,0 +1,82 @@
+# Event Horizon
+
+## Overview
+
+An R Package to build panels for event-study models based on a
+user-specified time horizon for repeated interventions
+
+The package is co-developed by Juan Carlos Villaseñor-Derbez and Renato
+Molina.
+
+## Installation
+
+Install the development version with:
+
+``` r
+# install.packages("pak")
+pak::pak("jcvdav/EventHorizon")
+```
+
+## Usage
+
+Here’s an example of how to use it
+
+``` r
+library(tidyr)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+library(EventHorizon)
+
+
+# Load a panel
+panel <- simulate_panel(n_units = 30, n_periods = 50)
+
+visualize_panel(panel)
+```
+
+![](reference/figures/README-unnamed-chunk-3-1.png)
+
+``` r
+
+event_horizon_panel <- panel |>
+mutate(treatment_id = treatment_ids(id = id, time = time, treatment = treatment, window = 3),
+       relative_time = calculate_relative_time(id = id, time = time, treatment_id = treatment_id, window = 3),
+       treatment_id = propagate_treatment_id(id = id, time = time, treatment_id = treatment_id, window = 3)) |>
+drop_na(treatment_id)
+
+visualize_panel(event_horizon_panel)
+```
+
+![](reference/figures/README-unnamed-chunk-3-2.png)
+
+``` r
+visualize_panel(event_horizon_panel, prepped = T)
+```
+
+![](reference/figures/README-unnamed-chunk-3-3.png)
+
+# Package index
+
+## All functions
+
+- [`calculate_relative_time()`](https://jcvdav.github.io/EventHorizon/reference/calculate_relative_time.md)
+  : Title
+- [`compute_cumulative_effects()`](https://jcvdav.github.io/EventHorizon/reference/compute_cumulative_effects.md)
+  : Compute cumulative event-study effects with delta-method standard
+  errors.
+- [`propagate_treatment_id()`](https://jcvdav.github.io/EventHorizon/reference/propagate_treatment_id.md)
+  : Assign id to leads and lags.
+- [`simulate_panel()`](https://jcvdav.github.io/EventHorizon/reference/simulate_panel.md)
+  : Build a simulated panel
+- [`treatment_ids()`](https://jcvdav.github.io/EventHorizon/reference/treatment_ids.md)
+  : Identify treatment ids based on a user-defined window
+- [`visualize_panel()`](https://jcvdav.github.io/EventHorizon/reference/visualize_panel.md)
+  : Visualize a panel
+
