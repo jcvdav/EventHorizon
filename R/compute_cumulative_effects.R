@@ -12,6 +12,7 @@
 #'
 #' @return A tibble with columns `relative_time`, `cum_effect`, `std_error`,
 #'   `conf_low`, and `conf_high`.
+#' @export
 #'
 #' @details The function forms cumulative effects by left-multiplying the vector
 #'   of event-time estimates with a lower-triangular matrix of ones. Let `β` be
@@ -34,7 +35,7 @@ compute_cumulative_effects <- function(model,
   # Check if model is from fixest or coeftest (conleyreg)
   is_fixest <- inherits(model, "fixest")
   is_coeftest <- inherits(model, "coeftest")
-  
+
   if (!is_fixest && !is_coeftest) {
     stop("Model must be a 'fixest' object or a 'coeftest' object (as returned by conleyreg).")
   }
