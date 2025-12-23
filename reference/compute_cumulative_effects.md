@@ -19,7 +19,7 @@ compute_cumulative_effects(
 
 - model:
 
-  A `fixest` or `conleyreg` object.
+  A `fixest` object or a `coeftest` object (as returned by `conleyreg`).
 
 - prefix:
 
@@ -43,8 +43,10 @@ compute_cumulative_effects(
 
 ## Value
 
-A tibble with columns `relative_time`, `cum_effect`, `std_error`,
-`conf_low`, and `conf_high`.
+A tibble with columns `relative_time`, `term`, `cum_effect`,
+`std_error`, `conf.low`, and `conf.high`. If coefficients contain
+categorical interactions, a `category` column is also included. The
+`term` column contains the original coefficient names.
 
 ## Details
 

@@ -5,7 +5,7 @@ Title
 ## Usage
 
 ``` r
-calculate_relative_time(id, time, treatment_id, window)
+calculate_relative_time(id, treatment_id, window)
 ```
 
 ## Arguments
@@ -15,11 +15,6 @@ calculate_relative_time(id, time, treatment_id, window)
   A column name containing the unique identifier of the observational
   unit in the panel (the i dimension)
 
-- time:
-
-  A column name containing the time variable in the panel (i.e. the t
-  dimension)
-
 - treatment_id:
 
   A character specifying the treatment id, as produced by
@@ -28,8 +23,7 @@ calculate_relative_time(id, time, treatment_id, window)
 - window:
 
   A number indicating the number of periods within which two or more
-  treatment events are merged. This should be in the same units as
-  `time`
+  treatment events are merged
 
 ## Value
 
@@ -76,7 +70,6 @@ mutate(treatment_id = treatment_ids(id = id,
                                     treatment = treatment,
                                     window = 3),
        relative_time = calculate_relative_time(id = id,
-                                               time = time,
                                                treatment_id = treatment_id,
                                                window = 3))
 
