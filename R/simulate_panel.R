@@ -14,13 +14,16 @@
 #' head(panel)
 #
 simulate_panel <- function(n_units = 30, n_periods = 30){
-
-
   set.seed(1)
-  tidyr::expand_grid(id = outer(LETTERS,
-                                1:ceiling(n_units / length(LETTERS)),
-                                paste0)[1:n_units],
-                     time = 1:n_periods) |>
+
+  ids <- outer(LETTERS,
+               1:ceiling(n_units / length(LETTERS)),
+               paste0)[1:n_units]
+
+  times <- 1:n_periods
+
+  tidyr::expand_grid(id = ids,
+                     time = times) |>
     dplyr::mutate(treatment = stats::rbinom(n = id, size = 1, prob = 0.1),
                   time = lubridate::ymd(paste0("2025-01-", time)))
 }

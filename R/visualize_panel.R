@@ -25,7 +25,6 @@
 #'                                     treatment = treatment,
 #'                                     window = 3),
 #'        relative_time = calculate_relative_time(id = id,
-#'                                                time = time,
 #'                                                treatment_id = treatment_id,
 #'                                                window = 3),
 #'        treatment_id = propagate_treatment_id(id = id,

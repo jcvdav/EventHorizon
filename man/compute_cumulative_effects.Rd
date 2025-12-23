@@ -13,7 +13,7 @@ compute_cumulative_effects(
 )
 }
 \arguments{
-\item{model}{A \code{fixest} or \code{conleyreg} object.}
+\item{model}{A \code{fixest} object or a \code{coeftest} object (as returned by \code{conleyreg}).}
 
 \item{prefix}{Character prefix identifying the event-study coefficients. The
 default matches \code{i(relative_time, ...)} produced names such as
@@ -28,8 +28,10 @@ was used, then we suggest you use -1 as an input here.}
 \item{which}{If \code{model} is \code{fixest_multi}, selects the component to use.}
 }
 \value{
-A tibble with columns \code{relative_time}, \code{cum_effect}, \code{std_error},
-\code{conf_low}, and \code{conf_high}.
+A tibble with columns \code{relative_time}, \code{term}, \code{cum_effect},
+\code{std_error}, \code{conf.low}, and \code{conf.high}. If coefficients contain
+categorical interactions, a \code{category} column is also included. The
+\code{term} column contains the original coefficient names.
 }
 \description{
 Compute cumulative event-study effects with delta-method standard errors.

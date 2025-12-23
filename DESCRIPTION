@@ -18,12 +18,16 @@ Authors@R: c(
   )
 Description: Builds panels for event-study models based on a user-specified
     time horizon for repeated interventions.
-License: LICENSE
+License: MIT + file LICENSE
 Imports:
     dplyr,
     tidyr,
     ggplot2,
-    lubridate
+    lubridate,
+    fixest,
+    stringr,
+    readr,
+    tibble
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
